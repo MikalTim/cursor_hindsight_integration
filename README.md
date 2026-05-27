@@ -1,6 +1,6 @@
 # Hindsight for Cursor
 
-Long-term memory for [Cursor](https://cursor.com) — same workflow as the [Codex integration](codex_hindsight_integration (sibling repo, if used)), but hooks call **Hindsight via MCP** (no `HindsightClient` / REST).
+Long-term memory for [Cursor](https://cursor.com) — same hook workflow as a Codex Hindsight integration, but hooks call **Hindsight via MCP** (no `HindsightClient` / REST).
 
 Uses the same MCP server as the IDE (`user-hindsight-local` → `http://localhost:8888/mcp/` by default).
 
@@ -19,6 +19,31 @@ Uses the same MCP server as the IDE (`user-hindsight-local` → `http://localhos
 - **Hindsight MCP** running (this repo: `hindsight-local` in `~/.cursor/mcp.json`)
 
 ## Installation
+
+### As a git submodule (recommended)
+
+From your project root:
+
+```bash
+git submodule add git@github.com:A2D-Geoscan/cursor_hindsight_integration.git .cursor/cursor_hindsight_integration
+git submodule update --init .cursor/cursor_hindsight_integration
+```
+
+Wire [`.cursor/hooks.json`](../hooks.json) to the scripts under `hooks/`:
+
+```json
+{
+  "hooks": {
+    "sessionStart": [{ "command": "python3 .cursor/cursor_hindsight_integration/hooks/session_start.py" }],
+    "beforeSubmitPrompt": [{ "command": "python3 .cursor/cursor_hindsight_integration/hooks/recall.py" }],
+    "stop": [{ "command": "python3 .cursor/cursor_hindsight_integration/hooks/retain.py" }]
+  }
+}
+```
+
+Edit `hooks/settings.json` for project-specific `bankId` / missions.
+
+### Setup
 
 1. Ensure Hindsight MCP is configured (already in this workspace):
 
