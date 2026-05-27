@@ -1,0 +1,1 @@
+# Hindsight Cursor hook libraries
