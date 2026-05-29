@@ -1,7 +1,7 @@
 {
   "version": "0.1.0",
   "mcpUrl": "http://localhost:8888/mcp",
-  "bankId": "watchdog-docker-deployment",
+  "bankId": "watchdog",
   "bankMission": "You are a Cursor AI coding assistant. Focus on technical decisions, code changes, debugging sessions, and project context relevant to the user's work on the Watchdog IoT deployment stack.",
   "retainMission": "Extract technical decisions, code patterns, debugging solutions, user preferences, project context, and architectural choices. Ignore routine greetings and transient operational details.",
   "autoRecall": true,
@@ -16,7 +16,7 @@
   "recallPromptPreamble": "Relevant memories from past conversations (prioritize recent when conflicting). Only use memories that are directly useful to continue this conversation; ignore the rest:",
   "retainToolCalls": true,
   "retainRoles": ["user", "assistant"],
-  "retainEveryNTurns": 3,
+  "retainEveryNTurns": 1,
   "retainOverlapTurns": 2,
   "retainTags": ["{session_id}", "cursor"],
   "retainMetadata": {},
