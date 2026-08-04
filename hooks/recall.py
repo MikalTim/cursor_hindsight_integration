@@ -12,6 +12,14 @@ import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+# Workspace spill helper (keeps beforeSubmitPrompt context WSL-readable)
+_REPO_HOOKS_LIB = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..", "..", "hooks", "lib")
+)
+if _REPO_HOOKS_LIB not in sys.path:
+    sys.path.insert(0, _REPO_HOOKS_LIB)
+from context_spill import emit_additional_context
+
 from lib.bank import derive_bank_id, ensure_bank_mission
 from lib.config import debug_log, load_config
 from lib.content import (
@@ -115,7 +123,8 @@ def main():
         },
     )
 
-    json.dump({"additional_context": context_message}, sys.stdout)
+    max_inline_chars = int(config.get("recallMaxInlineChars", 3500))
+    emit_additional_context(context_message, "recall", max_inline_chars=max_inline_chars)
 
 
 if __name__ == "__main__":
